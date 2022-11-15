@@ -52,14 +52,14 @@ export default {
     },
     // 监听tree-tools中触发的点击添加子部门事件
     addDepts(node) {
-      this.showDialog = true
       this.node = node
+      this.showDialog = true
     },
     editDepartments(node) {
-      this.showDialog = true
       this.node = node
       // 应该在这里调用获取部门详情的方法
       this.$refs.addDept.getDepartDetail(node.id)
+      this.showDialog = true
     }
   }
 }
