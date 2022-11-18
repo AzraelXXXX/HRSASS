@@ -3,7 +3,7 @@
     <div class="app-container">
       <!-- 放置内容 -->
       <el-card>
-        <el-tabs>
+        <el-tabs v-model="activeName">
           <el-tab-pane label="角色管理" name="first">
             <!-- 左侧的内容 -->
             <el-row style="height: 60px">
@@ -94,7 +94,8 @@ export default {
       },
       rules: {
         name: [{ required: true, message: '角色名称不能为空', trigger: 'blur' }]
-      }
+      },
+      activeName: 'first'
     }
   },
   computed: {
