@@ -19,9 +19,17 @@ router.beforeEach(async(to, from, next) => {
     } else {
       // 只有放过的时候才去获取用户资料
       if (!store.getters.userId) {
-        await store.dispatch('user/getUserInfo')
+        // async 函数所return的内容 用await就可以接收到
+        const { roles } = await store.dispatch('user/getUserInfo')
+        // 筛选用户的可用路由
+        const routes = await store.dispatch('permission/filterRoutes', roles.menus)
+        // 动态路由添加到路由表中
+        router.addRoutes([...routes, { path: '*', redirect: '/404', hidden: true }])
+        // 添加完动态路由之后
+        next(to.path) // 相当于跳到对应的地址 相当于多做一次跳转
+      } else {
+        next()
       }
-      next()
     }
   } else {
     // 没有token
